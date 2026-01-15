@@ -10,8 +10,7 @@ from dataclasses import dataclass
 import pandas as pd
 import numpy as np
 from src.util import save_object
-from src.components.dataingestion import Dataingestion
-from src.components.dataingestion import DataIngestionConfig
+
 
 @dataclass
 class datatransform_config:
@@ -81,8 +80,3 @@ class Datatransformation:
 
         except Exception as e:
             raise Customexception(e,sys)    
-if __name__=="__main__":
-    obj=Dataingestion()
-    train_path,test_path=obj.initiate_ingestion()
-    data_trans=Datatransformation()
-    data_trans.initiate_transformation(train_path=train_path,test_path=test_path)

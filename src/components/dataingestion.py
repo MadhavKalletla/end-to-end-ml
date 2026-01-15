@@ -5,6 +5,10 @@ from src.exception import Customexception
 from src.logger import logging
 import pandas as pd
 from dataclasses import dataclass
+from src.components.datatransformation import Datatransformation
+from src.components.datatransformation import datatransform_config
+from src.components.trainmodel import ModelTraining
+from src.components.trainmodel import Model_trainer_config
 
 @dataclass
 class DataIngestionConfig:
@@ -34,7 +38,11 @@ class Dataingestion:
             raise Customexception(e,sys)
 if __name__=="__main__":
     obj=Dataingestion()
-    obj.initiate_ingestion()        
+    train_path,test_path=obj.initiate_ingestion()
+    data_trans=Datatransformation()
+    train_arr,test_arr,preprocessor_path=data_trans.initiate_transformation(train_path=train_path,test_path=test_path)
+    train_obj=ModelTraining()
+    print(train_obj.initiateTrain(train_arr=train_arr,test_arr=test_arr))
 
 
           
