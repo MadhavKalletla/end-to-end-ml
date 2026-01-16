@@ -26,21 +26,21 @@ class ModelTraining:
     def initiateTrain(self,train_arr,test_arr):
         logging.info('splititng into training and test data')
         try:
-            X_train,y_train,X_test,y_test=(
-                train_arr[::-1],
-                train_arr[:,-1],
-                test_arr[::-1],
-                test_arr[:,-1]
-            )
+            X_train = train_arr[:, :-1]
+            y_train = train_arr[:, -1]
+
+            X_test = test_arr[:, :-1]
+            y_test = test_arr[:, -1]
+
             models = {
             "Random Forest": RandomForestRegressor(),
             "Decision Tree": DecisionTreeRegressor(),
             "Gradient Boosting": GradientBoostingRegressor(),
             "Linear Regression": LinearRegression(),
-            "K-Neighbors Classifier": KNeighborsRegressor(),
-            "XGBClassifier": XGBRegressor(),
-            "CatBoosting Classifier": CatBoostRegressor(verbose=False),
-            "AdaBoost Classifier": AdaBoostRegressor(),
+            "K-Neighbors Regressor": KNeighborsRegressor(),
+            "XGBRegressor": XGBRegressor(),
+            "CatBoosting Regressor": CatBoostRegressor(verbose=False),
+            "AdaBoost Regressor": AdaBoostRegressor(),
                 }
             report:dict=evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,models=models)
             ## To get best model score from dict
@@ -62,7 +62,9 @@ class ModelTraining:
                 obj=best_model
             )
             predict=best_model.predict(X_test)
-            score=r2_score(predict,y_test)
+            score=r2_score(y_test,predict)
+            print(y_test[:5])
+            print(predict[:5])
             return score
         except Exception as e:
             raise Customexception(e,sys)
