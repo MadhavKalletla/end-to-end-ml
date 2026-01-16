@@ -39,3 +39,15 @@ def evaluate_models(X_train, y_train, X_test, y_test, models):
 
     except Exception as e:
         raise Customexception(e, sys)
+def load_object(file_path: str):
+    """
+    Load a pickled object from the given file path
+    """
+    try:
+        with open(file_path, "rb") as file_obj:
+            return pickle.load(file_obj)
+
+    except Exception as e:
+        raise Exception(
+            f"Error occurred while loading object from {file_path}\n{e}"
+        )    
