@@ -8,8 +8,9 @@ class Predictionpipeline:
         pass
     def prediction(self,features):
         try:
-            model_path="Atrifacts/train_model.pkl"
-            obj_path="Atrifacts/preprocessor.pkl"
+            model_path = "Artifacts/train_model.pkl"
+            obj_path = "Artifacts/preprocessor.pkl"
+
             model=load_object(file_path=model_path)
             obj=load_object(file_path=obj_path)
             data_scaled=obj.transform(features)
